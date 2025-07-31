@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --agent-primary: #0891b2;
+  --agent-secondary: #22d3ee;
+  --agent-dark: #0a0a0a;
+  --agent-darker: #030712;
+  --neural-glow: rgba(34, 211, 238, 0.5);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: 'JetBrains Mono', monospace;
+  background: var(--agent-darker);
+  color: #ffffff;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--agent-darker);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--agent-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--agent-secondary);
+}
+
+/* Agent-specific animations */
+.matrix-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.1;
+}
+
+.neural-grid {
+  background-image: 
+    linear-gradient(rgba(34, 211, 238, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 211, 238, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: neural-pulse 3s ease-in-out infinite;
+}
+
+.data-stream {
+  position: relative;
+  overflow: hidden;
+}
+
+.data-stream::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--agent-secondary), transparent);
+  animation: data-flow 2s ease-in-out infinite;
+}
+
+.agent-glow {
+  box-shadow: 0 0 20px var(--neural-glow);
+  transition: box-shadow 0.3s ease;
+}
+
+.agent-glow:hover {
+  box-shadow: 0 0 30px var(--neural-glow), 0 0 60px var(--neural-glow);
+}
+
+/* Terminal-like text effects */
+.terminal-text {
+  font-family: 'JetBrains Mono', monospace;
+  text-shadow: 0 0 10px var(--agent-secondary);
+}
+
+.cyber-text {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Loading animations */
+.loading-dots::after {
+  content: '';
+  animation: loading-dots 1.5s infinite;
+}
+
+@keyframes loading-dots {
+  0%, 20% { content: '.'; }
+  40% { content: '..'; }
+  60%, 100% { content: '...'; }
+}
