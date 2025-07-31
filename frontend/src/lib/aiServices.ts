@@ -134,17 +134,17 @@ export const AI_SERVICES: Record<string, AIService> = {
   AgentX: {
     id: 'agentx',
     name: 'AgentX',
-    tagline: 'Autonomous AI Agent Platform',
-    description: 'Deploy intelligent AI agents that work 24/7. Automate tasks, handle customer service, and manage complex workflows.',
+    tagline: 'AI Agent that does your dirty work (legal, mostly)',
+    description: 'Your persistent AI assistant, trained to carry out missions across apps, files, and APIs. From scraping to replying, from fetching reports to acting on web data — AgentX handles it all.',
     features: [
-      'Custom AI agent creation',
-      'Task automation',
-      'Multi-platform integration',
-      'Learning and adaptation',
-      'Workflow management',
+      'Goal-driven Task Planning',
+      'Web + API Automation',
+      'File Access, Parsing & Logging',
+      'Loop & Retry Logic',
+      'Browser Control (Playwright)',
       '24/7 autonomous operation'
     ],
-    icon: '🤖',
+    icon: '🕶️',
     color: 'from-gray-600 to-gray-800',
     pricing: {
       monthly: 49.99,
