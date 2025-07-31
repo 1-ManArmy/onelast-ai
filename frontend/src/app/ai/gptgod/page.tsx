@@ -30,9 +30,21 @@ export default function GPTGodPage() {
           {/* Background decoration */}
           <div className="absolute inset-0 bg-gradient-to-r from-violet-600/10 to-purple-800/10 rounded-full blur-3xl -z-10 transform scale-150"></div>
           
-          <div className="text-8xl mb-6 filter drop-shadow-2xl">
+          <motion.div
+            initial={{ scale: 0, rotate: -180 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{ delay: 0.2, duration: 0.8, type: "spring", stiffness: 200 }}
+            className="text-8xl mb-6 filter drop-shadow-2xl"
+            whileHover={{ 
+              scale: [1, 1.2, 1],
+              rotate: [0, 360, 0],
+              transition: { duration: 1, ease: "easeInOut" }
+            }}
+            role="img"
+            aria-label="Lightning bolt - divine power symbol"
+          >
             ⚡
-          </div>
+          </motion.div>
           
           <h1 className="text-7xl font-bold mb-6 bg-gradient-to-r from-violet-300 via-purple-500 to-indigo-700 bg-clip-text text-transparent drop-shadow-lg">
             GPT-God
@@ -58,12 +70,24 @@ export default function GPTGodPage() {
           </div>
           
           <motion.button
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ 
+              scale: 1.05,
+              boxShadow: "0 25px 50px -12px rgba(139, 92, 246, 0.4)"
+            }}
             whileTap={{ scale: 0.95 }}
             onClick={() => handleSubscribe('monthly')}
-            className="bg-gradient-to-r from-violet-600 to-purple-700 text-white px-12 py-6 rounded-2xl font-bold text-xl shadow-lg hover:shadow-xl transition-all duration-300"
+            className="bg-gradient-to-r from-violet-600 to-purple-700 text-white px-12 py-6 rounded-2xl font-bold text-xl shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden group"
           >
-            ⚡ Unleash GPT-God
+            <span className="relative z-10 flex items-center space-x-3">
+              <motion.span
+                animate={{ rotate: [0, 360] }}
+                transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
+              >
+                ⚡
+              </motion.span>
+              <span>Unleash GPT-God</span>
+            </span>
+            <div className="absolute inset-0 bg-white/10 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
           </motion.button>
         </motion.div>
 
