@@ -41,7 +41,8 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/onelast-a
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/memories', require('./routes/memories'));
 app.use('/api/users', require('./routes/users'));
-app.use('/api/ai', require('./routes/ai/emoai'));
+app.use('/api/ai/emoai', require('./routes/ai/emoai'));
+app.use('/api/ai/pdfmind', require('./routes/ai/pdfmind'));
 
 // Health check
 app.get('/health', (req, res) => {
