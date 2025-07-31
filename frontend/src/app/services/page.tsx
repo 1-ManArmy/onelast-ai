@@ -4,9 +4,11 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { AI_SERVICES, SUBSCRIPTION_PLANS, PLAN_BENEFITS, AIService } from '@/lib/aiServices';
 import { Check, ArrowRight, Zap } from 'lucide-react';
+import Footer from '@/components/Footer';
+import Navigation from '@/components/Navigation';
 
 const ServicesPage = () => {
-  const [selectedPlan, setSelectedPlan] = useState(SUBSCRIPTION_PLANS.MONTHLY);
+  const [selectedPlan, setSelectedPlan] = useState<keyof typeof SUBSCRIPTION_PLANS>('monthly');
   
   const services = Object.values(AI_SERVICES);
 
@@ -79,22 +81,7 @@ const ServicesPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      {/* Header */}
-      <div className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Onelast.AI Platform
-            </Link>
-            <nav className="hidden md:flex space-x-8">
-              <Link href="/services" className="text-gray-900 font-semibold">Services</Link>
-              <Link href="/pricing" className="text-gray-700 hover:text-gray-900">Pricing</Link>
-              <Link href="/about" className="text-gray-700 hover:text-gray-900">About</Link>
-              <Link href="/contact" className="text-gray-700 hover:text-gray-900">Contact</Link>
-            </nav>
-          </div>
-        </div>
-      </div>
+      <Navigation />
 
       {/* Hero Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -111,19 +98,19 @@ const ServicesPage = () => {
           {/* Plan Toggle */}
           <div className="flex items-center justify-center mb-12">
             <div className="bg-white rounded-full p-1 shadow-lg border">
-              {Object.values(SUBSCRIPTION_PLANS).map((plan) => (
+              {Object.keys(SUBSCRIPTION_PLANS).map((planKey) => (
                 <button
-                  key={plan}
-                  onClick={() => setSelectedPlan(plan)}
+                  key={planKey}
+                  onClick={() => setSelectedPlan(planKey as keyof typeof SUBSCRIPTION_PLANS)}
                   className={`px-6 py-2 rounded-full font-semibold capitalize transition-all ${
-                    selectedPlan === plan
+                    selectedPlan === planKey
                       ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
                       : 'text-gray-600 hover:text-gray-900'
                   }`}
                 >
-                  {plan}
-                  {PLAN_BENEFITS[plan].discount > 0 && (
-                    <span className="ml-1 text-xs">({PLAN_BENEFITS[plan].discount}% off)</span>
+                  {planKey}
+                  {PLAN_BENEFITS[planKey].discount > 0 && (
+                    <span className="ml-1 text-xs">({PLAN_BENEFITS[planKey].discount}% off)</span>
                   )}
                 </button>
               ))}
@@ -159,6 +146,8 @@ const ServicesPage = () => {
           </Link>
         </div>
       </div>
+      
+      <Footer variant="light" />
     </div>
   );
 };

@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { AI_SERVICES } from '@/lib/aiServices';
 import { Check, Star, Zap, ArrowRight } from 'lucide-react';
+import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
 
 const PricingPage = () => {
   const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'yearly'>('monthly');
@@ -14,22 +16,7 @@ const PricingPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      {/* Header */}
-      <div className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Onelast.AI Platform
-            </Link>
-            <nav className="hidden md:flex space-x-8">
-              <Link href="/services" className="text-gray-700 hover:text-gray-900">Services</Link>
-              <Link href="/pricing" className="text-gray-900 font-semibold">Pricing</Link>
-              <Link href="/about" className="text-gray-700 hover:text-gray-900">About</Link>
-              <Link href="/contact" className="text-gray-700 hover:text-gray-900">Contact</Link>
-            </nav>
-          </div>
-        </div>
-      </div>
+      <Navigation />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Hero Section */}
@@ -352,6 +339,8 @@ const PricingPage = () => {
           </div>
         </div>
       </div>
+      
+      <Footer variant="light" />
     </div>
   );
 };

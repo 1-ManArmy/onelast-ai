@@ -3,26 +3,13 @@
 import React from 'react';
 import Link from 'next/link';
 import { FileText, Scale, AlertTriangle, CheckCircle } from 'lucide-react';
+import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
 
 const TermsAndConditionsPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Onelast.AI Platform
-            </Link>
-            <nav className="hidden md:flex space-x-8">
-              <Link href="/services" className="text-gray-700 hover:text-gray-900">Services</Link>
-              <Link href="/pricing" className="text-gray-700 hover:text-gray-900">Pricing</Link>
-              <Link href="/about" className="text-gray-700 hover:text-gray-900">About</Link>
-              <Link href="/contact" className="text-gray-700 hover:text-gray-900">Contact</Link>
-            </nav>
-          </div>
-        </div>
-      </div>
+      <Navigation />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Hero Section */}
@@ -316,6 +303,8 @@ const TermsAndConditionsPage = () => {
           </section>
         </div>
       </div>
+
+      <Footer variant="light" />
     </div>
   );
 };
