@@ -9,10 +9,59 @@ import SubscriptionModal from '@/components/ui/SubscriptionModal';
 export default function YouGenPage() {
   const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState('monthly');
+  
+  // Interactive demo states
+  const [channelUrl, setChannelUrl] = useState('');
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [processedData, setProcessedData] = useState<{
+    title: string;
+    videos: number;
+    duration: string;
+    size: string;
+  } | null>(null);
+  const [selectedFormat, setSelectedFormat] = useState('json');
+  const [downloadProgress, setDownloadProgress] = useState(0);
 
   const handleSubscribe = (plan: string) => {
     setSelectedPlan(plan);
     setShowSubscriptionModal(true);
+  };
+
+  const handleChannelSubmit = async () => {
+    if (!channelUrl.trim()) {
+      return;
+    }
+    
+    setIsProcessing(true);
+    setProcessedData(null);
+    
+    // Simulate processing
+    setTimeout(() => {
+      setProcessedData({
+        title: "Tech Channel Example",
+        videos: 247,
+        duration: "124.5 hours",
+        size: "2.8 GB"
+      });
+      setIsProcessing(false);
+    }, 3000);
+  };
+
+  const handleDownload = () => {
+    if (!processedData) {
+      return;
+    }
+    
+    setDownloadProgress(0);
+    const interval = setInterval(() => {
+      setDownloadProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          return 100;
+        }
+        return prev + 10;
+      });
+    }, 200);
   };
 
   return (
@@ -117,6 +166,353 @@ export default function YouGenPage() {
               <div className="text-gray-400">Accuracy Rate</div>
             </div>
           </motion.div>
+        </motion.div>
+
+        {/* Interactive Demo Section */}
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.4, duration: 0.8 }}
+          className="mb-20"
+        >
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-red-400 to-orange-500 bg-clip-text text-transparent">
+              🎬 Try YouGen Live Demo
+            </h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              Experience the power of YouTube content conversion with our interactive demo
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-gradient-to-br from-red-800/30 to-orange-900/30 backdrop-blur-xl p-8 rounded-3xl border border-red-500/20">
+              {/* URL Input Section */}
+              <div className="mb-8">
+                <label className="block text-lg font-semibold mb-4 text-red-300">
+                  📺 Enter YouTube Channel URL
+                </label>
+                <div className="flex space-x-4">
+                  <input
+                    type="text"
+                    value={channelUrl}
+                    onChange={(e) => setChannelUrl(e.target.value)}
+                    placeholder="https://youtube.com/@channelname or playlist URL"
+                    className="flex-1 px-6 py-4 bg-gray-800/50 border border-red-500/30 rounded-2xl text-white placeholder-gray-400 focus:border-red-400/60 focus:outline-none transition-colors"
+                  />
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={handleChannelSubmit}
+                    disabled={!channelUrl.trim() || isProcessing}
+                    className="px-8 py-4 bg-gradient-to-r from-red-500 to-orange-600 text-white rounded-2xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg transition-all duration-300"
+                  >
+                    {isProcessing ? '⚡ Processing...' : '🚀 Analyze'}
+                  </motion.button>
+                </div>
+              </div>
+
+              {/* Processing Animation */}
+              {isProcessing && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mb-8 p-6 bg-gray-800/40 rounded-2xl border border-red-500/20"
+                >
+                  <div className="flex items-center space-x-4 mb-4">
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                      className="w-8 h-8 border-4 border-red-500/30 border-t-red-500 rounded-full"
+                    ></motion.div>
+                    <span className="text-red-300 font-semibold">AI Processing Channel...</span>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    {[
+                      { task: "Scanning videos", progress: 100 },
+                      { task: "Downloading content", progress: 75 },
+                      { task: "Transcribing audio", progress: 45 },
+                      { task: "Processing data", progress: 20 }
+                    ].map((item, index) => (
+                      <div key={index} className="flex items-center space-x-4">
+                        <span className="text-sm text-gray-400 w-32">{item.task}</span>
+                        <div className="flex-1 bg-gray-700 rounded-full h-2">
+                          <motion.div
+                            initial={{ width: 0 }}
+                            animate={{ width: `${item.progress}%` }}
+                            transition={{ duration: 1, delay: index * 0.2 }}
+                            className="bg-gradient-to-r from-red-500 to-orange-500 h-2 rounded-full"
+                          ></motion.div>
+                        </div>
+                        <span className="text-sm text-red-400 w-12">{item.progress}%</span>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Results Section */}
+              {processedData && (
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mb-8"
+                >
+                  <h3 className="text-2xl font-bold mb-6 text-red-300">📊 Channel Analysis Results</h3>
+                  
+                  <div className="grid md:grid-cols-2 gap-6 mb-8">
+                    <div className="bg-gray-800/40 p-6 rounded-2xl border border-red-500/20">
+                      <h4 className="text-lg font-semibold mb-4 text-orange-300">📺 Channel Info</h4>
+                      <div className="space-y-3">
+                        <div className="flex justify-between">
+                          <span className="text-gray-400">Channel:</span>
+                          <span className="text-white font-semibold">{processedData.title}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-400">Videos:</span>
+                          <span className="text-white font-semibold">{processedData.videos}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-400">Duration:</span>
+                          <span className="text-white font-semibold">{processedData.duration}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-400">Size:</span>
+                          <span className="text-white font-semibold">{processedData.size}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-gray-800/40 p-6 rounded-2xl border border-red-500/20">
+                      <h4 className="text-lg font-semibold mb-4 text-orange-300">🎯 Export Options</h4>
+                      <div className="space-y-3">
+                        {[
+                          { format: 'json', name: 'JSON Dataset', icon: '📄', size: '45 MB' },
+                          { format: 'html', name: 'HTML Website', icon: '🌐', size: '120 MB' },
+                          { format: 'pdf', name: 'PDF Document', icon: '📋', size: '25 MB' },
+                          { format: 'ai', name: 'AI Training Data', icon: '🤖', size: '78 MB' }
+                        ].map((format, index) => (
+                          <div
+                            key={index}
+                            onClick={() => setSelectedFormat(format.format)}
+                            className={`flex items-center justify-between p-3 rounded-xl cursor-pointer transition-all duration-300 ${
+                              selectedFormat === format.format
+                                ? 'bg-red-500/20 border border-red-500/40'
+                                : 'bg-gray-700/30 hover:bg-gray-700/50'
+                            }`}
+                          >
+                            <div className="flex items-center space-x-3">
+                              <span className="text-2xl">{format.icon}</span>
+                              <div>
+                                <div className="text-white font-medium">{format.name}</div>
+                                <div className="text-sm text-gray-400">{format.size}</div>
+                              </div>
+                            </div>
+                            <div className={`w-4 h-4 rounded-full border-2 ${
+                              selectedFormat === format.format
+                                ? 'bg-red-500 border-red-500'
+                                : 'border-gray-400'
+                            }`}></div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={handleDownload}
+                    className="w-full py-4 bg-gradient-to-r from-red-500 to-orange-600 text-white rounded-2xl font-bold text-lg hover:shadow-lg transition-all duration-300"
+                  >
+                    🔥 Download {selectedFormat.toUpperCase()} Export
+                  </motion.button>
+
+                  {downloadProgress > 0 && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="mt-4 p-4 bg-gray-800/40 rounded-2xl border border-green-500/20"
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-green-400 font-semibold">Preparing download...</span>
+                        <span className="text-green-400">{downloadProgress}%</span>
+                      </div>
+                      <div className="bg-gray-700 rounded-full h-2">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: `${downloadProgress}%` }}
+                          className="bg-gradient-to-r from-green-500 to-emerald-500 h-2 rounded-full transition-all duration-300"
+                        ></motion.div>
+                      </div>
+                    </motion.div>
+                  )}
+                </motion.div>
+              )}
+
+              {/* Demo Notice */}
+              <div className="p-4 bg-orange-500/10 border border-orange-500/20 rounded-2xl text-center">
+                <p className="text-orange-300">
+                  📱 This is a demo preview. Subscribe to unlock full YouTube conversion capabilities!
+                </p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Live Analytics & Examples */}
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.8, duration: 0.8 }}
+          className="mb-20"
+        >
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-red-400 to-orange-500 bg-clip-text text-transparent">
+              📈 Real-Time Conversion Analytics
+            </h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              See live statistics and examples of successful YouTube channel conversions
+            </p>
+          </div>
+
+          <div className="max-w-6xl mx-auto">
+            <div className="grid md:grid-cols-3 gap-6 mb-12">
+              {[
+                { label: "Channels Processed", value: "10,247", change: "+156 today", icon: "📺" },
+                { label: "Hours Transcribed", value: "847.2K", change: "+2.3K today", icon: "🎵" },
+                { label: "Datasets Created", value: "45.8K", change: "+89 today", icon: "📊" },
+              ].map((stat, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 2 + index * 0.1, duration: 0.6 }}
+                  className="bg-gradient-to-br from-red-800/30 to-orange-900/30 backdrop-blur-xl p-6 rounded-2xl border border-red-500/20"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-3xl">{stat.icon}</span>
+                    <span className="text-green-400 text-sm font-semibold">{stat.change}</span>
+                  </div>
+                  <div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
+                  <div className="text-sm text-gray-400">{stat.label}</div>
+                </motion.div>
+              ))}
+            </div>
+
+            <div className="grid lg:grid-cols-2 gap-8">
+              {/* Success Stories */}
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 2.4, duration: 0.8 }}
+                className="bg-gradient-to-br from-red-800/30 to-orange-900/30 backdrop-blur-xl p-8 rounded-3xl border border-red-500/20"
+              >
+                <h3 className="text-2xl font-bold mb-6 text-red-300">🏆 Success Stories</h3>
+                
+                <div className="space-y-6">
+                  {[
+                    { 
+                      channel: "Tech Reviews Pro", 
+                      videos: 342, 
+                      format: "AI Dataset", 
+                      result: "Fine-tuned ChatGPT model",
+                      icon: "🤖"
+                    },
+                    { 
+                      channel: "Cooking Masterclass", 
+                      videos: 187, 
+                      format: "HTML Website", 
+                      result: "Recipe search portal",
+                      icon: "🌐"
+                    },
+                    { 
+                      channel: "Business Insights", 
+                      videos: 256, 
+                      format: "JSON + PDF", 
+                      result: "Knowledge base system",
+                      icon: "📚"
+                    }
+                  ].map((story, index) => (
+                    <div key={index} className="bg-gray-800/40 p-4 rounded-2xl border border-red-500/10">
+                      <div className="flex items-center space-x-3 mb-2">
+                        <span className="text-2xl">{story.icon}</span>
+                        <div>
+                          <h4 className="font-bold text-white">{story.channel}</h4>
+                          <p className="text-sm text-gray-400">{story.videos} videos processed</p>
+                        </div>
+                      </div>
+                      <div className="text-sm text-orange-300">
+                        <span className="font-medium">Format:</span> {story.format}
+                      </div>
+                      <div className="text-sm text-green-400">
+                        <span className="font-medium">Result:</span> {story.result}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Format Examples */}
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 2.6, duration: 0.8 }}
+                className="bg-gradient-to-br from-orange-800/30 to-red-900/30 backdrop-blur-xl p-8 rounded-3xl border border-orange-500/20"
+              >
+                <h3 className="text-2xl font-bold mb-6 text-orange-300">📋 Export Format Examples</h3>
+                
+                <div className="space-y-4">
+                  <div className="bg-gray-800/50 p-4 rounded-xl">
+                    <h4 className="text-lg font-semibold mb-2 text-orange-300">📄 JSON Dataset</h4>
+                    <div className="bg-gray-900/50 p-3 rounded-lg">
+                      <pre className="text-xs text-gray-300 overflow-x-auto">
+{`{
+  "video_id": "xyz123",
+  "title": "How to Build AI Apps",
+  "transcript": "Welcome to this tutorial...",
+  "metadata": {
+    "duration": "15:30",
+    "views": 125000,
+    "tags": ["AI", "Programming"]
+  }
+}`}
+                      </pre>
+                    </div>
+                  </div>
+
+                  <div className="bg-gray-800/50 p-4 rounded-xl">
+                    <h4 className="text-lg font-semibold mb-2 text-orange-300">🌐 HTML Website</h4>
+                    <div className="bg-gray-900/50 p-3 rounded-lg">
+                      <pre className="text-xs text-gray-300 overflow-x-auto">
+{`<!DOCTYPE html>
+<html>
+<head>
+  <title>Tech Channel Archive</title>
+</head>
+<body>
+  <article>
+    <h1>How to Build AI Apps</h1>
+    <div class="transcript">...</div>
+  </article>
+</body>
+</html>`}
+                      </pre>
+                    </div>
+                  </div>
+
+                  <div className="bg-gray-800/50 p-4 rounded-xl">
+                    <h4 className="text-lg font-semibold mb-2 text-orange-300">🤖 AI Training Format</h4>
+                    <div className="bg-gray-900/50 p-3 rounded-lg">
+                      <pre className="text-xs text-gray-300 overflow-x-auto">
+{`{"prompt": "How do I build AI apps?", "completion": "Start with Python, use frameworks like TensorFlow..."}`}
+                      </pre>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
         </motion.div>
 
         {/* Features Section */}
@@ -497,6 +893,101 @@ export default function YouGenPage() {
               </motion.div>
             ))}
           </div>
+        </motion.div>
+
+        {/* Customer Testimonials */}
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 2.8, duration: 0.8 }}
+          className="mb-20"
+        >
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-red-400 to-orange-500 bg-clip-text text-transparent">
+              🌟 What Our Users Say
+            </h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              Join thousands of creators and developers who transform YouTube content with YouGen
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {[
+              {
+                name: "Sarah Chen",
+                role: "AI Researcher",
+                avatar: "👩‍💻",
+                testimonial: "YouGen helped me create a massive training dataset from educational YouTube channels. The transcription quality is incredible!",
+                rating: 5,
+                metric: "500+ hours processed"
+              },
+              {
+                name: "Mike Rodriguez",
+                role: "Content Creator",
+                avatar: "🎬",
+                testimonial: "Converted my entire channel into a searchable website. My audience loves being able to find specific topics easily!",
+                rating: 5,
+                metric: "300+ videos converted"
+              },
+              {
+                name: "Dr. Emma Wilson",
+                role: "EdTech Startup",
+                avatar: "📚",
+                testimonial: "We used YouGen to build our educational platform. The JSON exports made it easy to integrate with our learning management system.",
+                rating: 5,
+                metric: "50+ channels processed"
+              }
+            ].map((testimonial, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 3 + index * 0.1, duration: 0.6 }}
+                className="bg-gradient-to-br from-red-800/30 to-orange-900/30 backdrop-blur-xl p-8 rounded-3xl border border-red-500/20"
+              >
+                <div className="flex items-center mb-4">
+                  <div className="text-4xl mr-4">{testimonial.avatar}</div>
+                  <div>
+                    <h4 className="font-bold text-white">{testimonial.name}</h4>
+                    <p className="text-red-300 text-sm">{testimonial.role}</p>
+                    <p className="text-orange-400 text-xs">{testimonial.metric}</p>
+                  </div>
+                </div>
+                
+                <blockquote className="text-gray-300 italic mb-4">
+                  &ldquo;{testimonial.testimonial}&rdquo;
+                </blockquote>
+                
+                <div className="flex text-yellow-400">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <span key={i}>⭐</span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 3.4, duration: 0.8 }}
+            className="text-center mt-12"
+          >
+            <div className="flex justify-center items-center space-x-8 text-2xl">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-red-400">10K+</div>
+                <div className="text-sm text-gray-400">Happy Users</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-orange-400">500K+</div>
+                <div className="text-sm text-gray-400">Videos Processed</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-red-400">99.8%</div>
+                <div className="text-sm text-gray-400">Success Rate</div>
+              </div>
+            </div>
+          </motion.div>
         </motion.div>
 
         {/* Get Started Section */}
