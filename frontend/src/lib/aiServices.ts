@@ -244,6 +244,29 @@ export const AI_SERVICES: Record<string, AIService> = {
       yearly: 199.99
     },
     apiEndpoint: '/api/services/onelastai'
+  },
+
+  VisionCraft: {
+    id: 'visioncraft',
+    name: 'VisionCraft',
+    tagline: 'AI Image Generation & Visual Arts',
+    description: 'Create stunning artwork, generate images from text, and transform your visual ideas into reality with advanced AI models.',
+    features: [
+      'Text-to-image generation',
+      'Image-to-image transformation',
+      'Style transfer and editing',
+      'High-resolution upscaling',
+      'Batch image processing',
+      'Custom model fine-tuning'
+    ],
+    icon: '🎨',
+    color: 'from-pink-500 to-rose-600',
+    pricing: {
+      monthly: 29.99,
+      weekly: 8.99,
+      yearly: 299.99
+    },
+    apiEndpoint: '/api/services/visioncraft'
   }
 };
 
