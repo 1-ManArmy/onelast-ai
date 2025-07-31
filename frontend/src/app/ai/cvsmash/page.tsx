@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
@@ -10,13 +10,54 @@ export default function CVSmashPage() {
   const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState('monthly');
 
-  const handleSubscribe = (plan: string) => {
+  const handleSubscribe = useCallback((plan: string) => {
     setSelectedPlan(plan);
     setShowSubscriptionModal(true);
-  };
+  }, []);
+
+  const handleCloseModal = useCallback(() => {
+    setShowSubscriptionModal(false);
+  }, []);
+
+  // Memoized plan data for better performance
+  const planData = useMemo(() => ({
+    'job seeker': {
+      name: 'Job Seeker',
+      price: '$6.99',
+      features: ['5 resume variations', 'Basic ATS optimization', 'PDF & DOCX export', 'Standard templates', 'Email support']
+    },
+    'career crusher': {
+      name: 'Career Crusher', 
+      price: '$22.99',
+      features: ['Unlimited resume variations', 'Advanced ATS optimization', 'All export formats', 'Premium templates', 'Job-tailored keywords', 'Auto-branding', 'Priority support']
+    },
+    'resume destroyer': {
+      name: 'Resume Destroyer',
+      price: '$229.99', 
+      features: ['Everything in Career Crusher', 'Bulk resume generation', 'Custom template creation', 'API access', 'White-label licensing', '1-on-1 career coaching', 'Interview preparation', 'Lifetime updates']
+    }
+  }), []);
 
   return (
-    <div className="bg-gradient-to-br from-amber-950 via-yellow-900 to-orange-950 min-h-screen text-white">
+    <>
+      {/* SEO Meta Tags */}
+      <head>
+        <title>CVSmash - AI Resume Builder | ATS-Optimized Resume Generator</title>
+        <meta name="description" content="CVSmash: One prompt → Multiple Resume Formats. AI-powered resume blacksmith that crushes HR bots with ATS-optimized, job-tailored resumes in PDF, DOCX, HTML." />
+        <meta name="keywords" content="resume builder, ATS optimization, AI resume, job application, CV generator, resume templates, career tools, interview preparation" />
+        <meta property="og:title" content="CVSmash - Resume Destroyer That Crushes HR Bots" />
+        <meta property="og:description" content="One prompt → Multiple Resume Formats, Styled, Branded, ATS-ready. Crush HR bots, smash the stack." />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="CVSmash - AI Resume Blacksmith" />
+        <meta name="twitter:description" content="Transform your career with AI-powered resumes that crush ATS systems and land interviews." />
+      </head>
+      
+      <div 
+        className="bg-gradient-to-br from-amber-950 via-yellow-900 to-orange-950 min-h-screen text-white"
+        role="main"
+        aria-label="CVSmash Resume Builder Service Page"
+      >
       <Navigation />
       
       <div className="container mx-auto px-6 pt-32 pb-20">
@@ -27,7 +68,7 @@ export default function CVSmashPage() {
           transition={{ duration: 0.8 }}
           className="text-center mb-20 relative"
         >
-          {/* Enhanced Background with pulsing career energy */}
+          {/* Background decoration with reduced motion support */}
           <motion.div 
             animate={{ 
               scale: [1, 1.1, 1],
@@ -39,8 +80,13 @@ export default function CVSmashPage() {
               ease: "easeInOut" 
             }}
             className="absolute inset-0 bg-gradient-to-r from-amber-600/20 to-yellow-800/20 rounded-full blur-3xl -z-10 transform scale-150"
+            style={{ willChange: 'transform, opacity' }}
+            aria-hidden="true"
           ></motion.div>
-          <div className="absolute inset-0 bg-gradient-to-r from-orange-600/10 to-amber-700/10 rounded-full blur-2xl -z-10 transform scale-125"></div>
+          <div 
+            className="absolute inset-0 bg-gradient-to-r from-orange-600/10 to-amber-700/10 rounded-full blur-2xl -z-10 transform scale-125"
+            aria-hidden="true"
+          ></div>
           
           <motion.div
             initial={{ scale: 0, rotate: -180 }}
@@ -53,8 +99,16 @@ export default function CVSmashPage() {
               filter: ["drop-shadow(0 0 0 rgba(245, 158, 11, 0))", "drop-shadow(0 0 30px rgba(245, 158, 11, 0.8))", "drop-shadow(0 0 15px rgba(245, 158, 11, 0.4))"],
               transition: { duration: 1.2, ease: "easeInOut" }
             }}
+            style={{ willChange: 'transform, filter' }}
             role="img"
-            aria-label="Document - professional resume and CV optimization"
+            aria-label="Document icon representing professional resume and CV optimization services"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleSubscribe('monthly');
+              }
+            }}
           >
             <motion.span
               animate={{ 
@@ -71,6 +125,8 @@ export default function CVSmashPage() {
                 duration: 2, 
                 ease: "easeInOut" 
               }}
+              style={{ willChange: 'filter' }}
+              aria-hidden="true"
             >
               📄
             </motion.span>
@@ -130,7 +186,11 @@ export default function CVSmashPage() {
             }}
             whileTap={{ scale: 0.95 }}
             onClick={() => handleSubscribe('monthly')}
-            className="bg-gradient-to-r from-amber-600 to-yellow-700 text-white px-12 py-6 rounded-2xl font-bold text-xl shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden group"
+            className="bg-gradient-to-r from-amber-600 to-yellow-700 text-white px-12 py-6 rounded-2xl font-bold text-xl shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden group focus:outline-none focus:ring-4 focus:ring-amber-500/50"
+            style={{ willChange: 'transform, box-shadow' }}
+            aria-label="Start building your optimized resume with CVSmash monthly plan"
+            role="button"
+            tabIndex={0}
           >
             <span className="relative z-10 flex items-center space-x-3">
               <motion.span
@@ -148,6 +208,8 @@ export default function CVSmashPage() {
                   scale: { repeat: Infinity, duration: 2, ease: "easeInOut" },
                   filter: { repeat: Infinity, duration: 1.5, ease: "easeInOut" }
                 }}
+                style={{ willChange: 'transform, filter' }}
+                aria-hidden="true"
               >
                 💥
               </motion.span>
@@ -163,6 +225,8 @@ export default function CVSmashPage() {
                 duration: 2,
                 ease: "easeInOut"
               }}
+              style={{ willChange: 'transform, opacity' }}
+              aria-hidden="true"
             ></motion.div>
           </motion.button>
         </motion.div>
@@ -777,23 +841,20 @@ export default function CVSmashPage() {
       {showSubscriptionModal && (
         <SubscriptionModal
           isOpen={showSubscriptionModal}
-          onClose={() => setShowSubscriptionModal(false)}
+          onClose={handleCloseModal}
           service={{
             name: "CVSmash",
             icon: "📄",
             color: "from-amber-600 to-yellow-800"
           }}
           plan={{
-            name: selectedPlan.charAt(0).toUpperCase() + selectedPlan.slice(1),
-            price: selectedPlan === 'job seeker' ? '$6.99' : selectedPlan === 'career crusher' ? '$22.99' : '$229.99',
-            features: selectedPlan === 'job seeker' 
-              ? ['5 resume variations', 'Basic ATS optimization', 'PDF & DOCX export', 'Standard templates', 'Email support']
-              : selectedPlan === 'career crusher' 
-              ? ['Unlimited resume variations', 'Advanced ATS optimization', 'All export formats', 'Premium templates', 'Job-tailored keywords', 'Auto-branding', 'Priority support']
-              : ['Everything in Career Crusher', 'Bulk resume generation', 'Custom template creation', 'API access', 'White-label licensing', '1-on-1 career coaching', 'Interview preparation', 'Lifetime updates']
+            name: planData[selectedPlan as keyof typeof planData]?.name || 'Career Crusher',
+            price: planData[selectedPlan as keyof typeof planData]?.price || '$22.99',
+            features: planData[selectedPlan as keyof typeof planData]?.features || planData['career crusher'].features
           }}
         />
       )}
-    </div>
+      </div>
+    </>
   );
 }
