@@ -1,0 +1,18 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "appName": {
+      "value": "onelast-ai"
+    },
+    "environment": {
+      "value": "prod"
+    },
+    "mongoConnectionString": {
+      "value": "mongodb://localhost:27017/onelast-ai"
+    },
+    "jwtSecret": {
+      "value": "your-super-secret-jwt-key-change-this-in-production"
+    }
+  }
+}
