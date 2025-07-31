@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
@@ -10,10 +10,10 @@ export default function AgentXPage() {
   const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState('monthly');
 
-  const handleSubscribe = (plan: string) => {
+  const handleSubscribe = useCallback((plan: string) => {
     setSelectedPlan(plan);
     setShowSubscriptionModal(true);
-  };
+  }, []);
 
   return (
     <div className="bg-gradient-to-br from-gray-950 via-gray-900 to-black min-h-screen text-white">
@@ -35,6 +35,13 @@ export default function AgentXPage() {
             animate={{ scale: 1, rotate: 0 }}
             transition={{ delay: 0.2, duration: 0.8, type: "spring", stiffness: 200 }}
             className="text-8xl mb-6 filter drop-shadow-2xl"
+            whileHover={{ 
+              rotate: [0, 10, -10, 0],
+              scale: [1, 1.05, 1],
+              transition: { duration: 0.8 }
+            }}
+            role="img"
+            aria-label="Agent sunglasses - professional AI automation service"
           >
             🕶️
           </motion.div>
@@ -610,7 +617,8 @@ export default function AgentXPage() {
                   }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handleSubscribe('monthly')}
-                  className="px-12 py-6 bg-gradient-to-r from-gray-600 to-gray-800 text-white font-bold rounded-2xl text-xl hover:from-gray-500 hover:to-gray-700 transition-all duration-300 relative overflow-hidden group/btn shadow-2xl"
+                  className="px-12 py-6 bg-gradient-to-r from-gray-600 to-gray-800 text-white font-bold rounded-2xl text-xl hover:from-gray-500 hover:to-gray-700 transition-all duration-300 relative overflow-hidden group/btn shadow-2xl focus:outline-none focus:ring-2 focus:ring-gray-500/50 focus:ring-offset-2 focus:ring-offset-gray-900"
+                  aria-label="Start AgentX mission with monthly plan"
                 >
                   <span className="relative z-10 flex items-center space-x-3">
                     <span>🚀</span>
@@ -622,7 +630,8 @@ export default function AgentXPage() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 border-2 border-gray-500/30 text-gray-300 font-semibold rounded-2xl text-lg hover:border-gray-400/50 hover:text-white transition-all duration-300 group/secondary"
+                  className="px-8 py-4 border-2 border-gray-500/30 text-gray-300 font-semibold rounded-2xl text-lg hover:border-gray-400/50 hover:text-white transition-all duration-300 group/secondary focus:outline-none focus:ring-2 focus:ring-gray-500/30 focus:ring-offset-2 focus:ring-offset-gray-900"
+                  aria-label="View AgentX documentation and guides"
                 >
                   <span className="flex items-center space-x-3">
                     <span>📋</span>
