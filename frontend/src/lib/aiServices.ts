@@ -157,24 +157,76 @@ export const AI_SERVICES: Record<string, AIService> = {
   AutoChat: {
     id: 'autochat',
     name: 'AutoChat',
-    tagline: 'Automated Chat & Customer Service',
-    description: 'Intelligent chatbot that handles customer inquiries, provides support, and converts visitors into customers automatically.',
+    tagline: 'Autopilot for DMs, Replies, Chats — Powered by LLMs',
+    description: 'Your AI wingman that reads, replies, and keeps conversations flowing across all platforms. Hook it up, train it on your style, and it\'s YOU... automated.',
     features: [
-      'Intelligent chatbot creation',
-      'Customer service automation',
-      'Lead generation',
-      'Multi-language support',
-      'CRM integration',
-      'Analytics and reporting'
+      'Custom LLM Reply Engine (GPT/Local)',
+      'Async auto-response engine',
+      'Learns your tone/style from samples',
+      'Email, Telegram, Twitter DMs support',
+      'All local data — no cloud sync',
+      'Multi-platform automation',
+      'Personal conversation style training',
+      'Real-time message processing'
     ],
-    icon: '💭',
-    color: 'from-teal-500 to-cyan-600',
+    icon: '�',
+    color: 'from-blue-600 to-indigo-700',
     pricing: {
-      monthly: 27.99,
-      weekly: 7.99,
-      yearly: 279.99
+      monthly: 29.99,
+      weekly: 8.99,
+      yearly: 299.99
     },
     apiEndpoint: '/api/services/autochat'
+  },
+
+  BrainAI: {
+    id: 'brainai',
+    name: 'Brain AI',
+    tagline: 'Your Respectful Personal AI Assistant with Perfect Memory',
+    description: 'The most personal AI that remembers everything you tell it. Activated only with respect - requires your personal greeting and "please". Your digital brain that never forgets.',
+    features: [
+      '3-Key Respectful Activation System',
+      'Perfect Personal Memory Storage',
+      'Voice Command Recognition',
+      'Contact & Schedule Management',
+      'Long-term Memory Retrieval',
+      'Per-User Data Isolation',
+      'Natural Voice Conversations',
+      'Semantic Memory Search'
+    ],
+    icon: '🧠',
+    color: 'from-purple-600 to-pink-700',
+    pricing: {
+      monthly: 49.99,
+      weekly: 14.99,
+      yearly: 499.99
+    },
+    apiEndpoint: '/api/services/brainai'
+  },
+
+  NetIntel: {
+    id: 'netintel',
+    name: 'NetIntel',
+    tagline: 'Advanced Network Intelligence & Security Analysis',
+    description: 'Professional network scanning, IP analysis, and security intelligence. Like Nmap/Zenmap but smarter - with AI-powered threat detection and real-time monitoring.',
+    features: [
+      'Advanced Port Scanning (Nmap-powered)',
+      'IP Geolocation & Analysis',
+      'Network Security Assessment',
+      'Real-time Threat Detection',
+      'Vulnerability Scanning',
+      'Network Topology Mapping',
+      'Traffic Analysis & Monitoring',
+      'Security Report Generation'
+    ],
+    icon: '🕵️',
+    color: 'from-green-600 to-emerald-700',
+    pricing: {
+      monthly: 79.99,
+      weekly: 22.99,
+      yearly: 799.99
+    },
+    apiEndpoint: '/api/services/netintel'
   },
 
   CVSmash: {
@@ -267,6 +319,52 @@ export const AI_SERVICES: Record<string, AIService> = {
       yearly: 299.99
     },
     apiEndpoint: '/api/services/visioncraft'
+  },
+
+  Mistral: {
+    id: 'mistral',
+    name: 'Mistral AI',
+    tagline: 'Advanced European AI Language Model',
+    description: 'High-performance language model with exceptional reasoning capabilities, multilingual support, and state-of-the-art performance.',
+    features: [
+      'Advanced language understanding',
+      'Multilingual conversations',
+      'Code generation and debugging',
+      'Mathematical reasoning',
+      'Creative writing assistance',
+      'Professional text analysis'
+    ],
+    icon: '🌟',
+    color: 'from-orange-500 to-red-600',
+    pricing: {
+      monthly: 24.99,
+      weekly: 7.99,
+      yearly: 249.99
+    },
+    apiEndpoint: '/api/services/mistral'
+  },
+
+  GoogleAI: {
+    id: 'googleai',
+    name: 'Google AI Studio',
+    tagline: 'Gemini-Powered AI Assistant',
+    description: 'Advanced multimodal AI powered by Google\'s Gemini models. Exceptional reasoning, vision analysis, and comprehensive language understanding.',
+    features: [
+      'Multimodal AI (text, images, code)',
+      'Advanced reasoning and logic',
+      'Vision and image analysis',
+      'Code generation and debugging',
+      'Real-time information processing',
+      'Long context understanding'
+    ],
+    icon: '🌈',
+    color: 'from-blue-500 to-green-600',
+    pricing: {
+      monthly: 19.99,
+      weekly: 5.99,
+      yearly: 199.99
+    },
+    apiEndpoint: '/api/services/googleai'
   }
 };
 

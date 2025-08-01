@@ -43,6 +43,9 @@ app.use('/api/memories', require('./routes/memories'));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/ai/emoai', require('./routes/ai/emoai'));
 app.use('/api/ai/pdfmind', require('./routes/ai/pdfmind'));
+app.use('/api/ai/autochat', require('./routes/ai/autochat'));
+app.use('/api/ai/brainai', require('./routes/ai/brainai'));
+app.use('/api/ai/netintel', require('./routes/ai/netintel'));
 
 // Health check
 app.get('/health', (req, res) => {

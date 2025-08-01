@@ -237,6 +237,199 @@ router.post('/visioncraft/analyze', auth, async (req, res) => {
   }
 });
 
+// Mistral AI - Chat Completion
+router.post('/mistral/chat', auth, async (req, res) => {
+  try {
+    const { prompt, model = 'mistral-small', options = {} } = req.body;
+    
+    if (!prompt) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Prompt is required' 
+      });
+    }
+
+    const response = await aiService.callMistral(prompt, model, options);
+    
+    res.json({
+      success: true,
+      data: {
+        prompt,
+        model,
+        response,
+        timestamp: new Date()
+      }
+    });
+  } catch (error) {
+    console.error('Mistral AI Error:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to process Mistral AI request' 
+    });
+  }
+});
+
+// Mistral AI - Code Analysis
+router.post('/mistral/code-analysis', auth, async (req, res) => {
+  try {
+    const { code, language, task = 'analyze' } = req.body;
+    
+    if (!code || !language) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Code and language are required' 
+      });
+    }
+
+    const analysis = await aiService.codeAnalysisWithMistral(code, language, task);
+    
+    res.json({
+      success: true,
+      data: {
+        code,
+        language,
+        task,
+        analysis,
+        timestamp: new Date()
+      }
+    });
+  } catch (error) {
+    console.error('Mistral Code Analysis Error:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to analyze code with Mistral AI' 
+    });
+  }
+});
+
+// Mistral AI - Multilingual Support
+router.post('/mistral/multilingual', auth, async (req, res) => {
+  try {
+    const { text, targetLanguage, task = 'translate' } = req.body;
+    
+    if (!text) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Text is required' 
+      });
+    }
+
+    const result = await aiService.multilingualSupportWithMistral(text, targetLanguage, task);
+    
+    res.json({
+      success: true,
+      data: {
+        text,
+        targetLanguage,
+        task,
+        result,
+        timestamp: new Date()
+      }
+    });
+  } catch (error) {
+    console.error('Mistral Multilingual Error:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to process multilingual request with Mistral AI' 
+    });
+  }
+});
+
+// Google AI Studio - Chat with Gemini
+router.post('/google/chat', auth, async (req, res) => {
+  try {
+    const { prompt, model = 'gemini-1.5-flash', options = {} } = req.body;
+    
+    if (!prompt) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Prompt is required' 
+      });
+    }
+
+    const response = await aiService.callGoogleAI(prompt, model, options);
+    
+    res.json({
+      success: true,
+      data: {
+        prompt,
+        model,
+        response,
+        timestamp: new Date()
+      }
+    });
+  } catch (error) {
+    console.error('Google AI Error:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to process Google AI request' 
+    });
+  }
+});
+
+// Google AI Studio - Vision Analysis
+router.post('/google/vision', auth, async (req, res) => {
+  try {
+    const { imageBase64, prompt, options = {} } = req.body;
+    
+    if (!imageBase64 || !prompt) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Image and prompt are required' 
+      });
+    }
+
+    const analysis = await aiService.visionAnalysisWithGoogleAI(imageBase64, prompt, options);
+    
+    res.json({
+      success: true,
+      data: {
+        prompt,
+        analysis,
+        timestamp: new Date()
+      }
+    });
+  } catch (error) {
+    console.error('Google AI Vision Error:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to analyze image with Google AI' 
+    });
+  }
+});
+
+// Google AI Studio - Advanced Reasoning
+router.post('/google/reasoning', auth, async (req, res) => {
+  try {
+    const { question, context, options = {} } = req.body;
+    
+    if (!question) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Question is required' 
+      });
+    }
+
+    const reasoning = await aiService.reasoningWithGoogleAI(question, context, options);
+    
+    res.json({
+      success: true,
+      data: {
+        question,
+        context,
+        reasoning,
+        timestamp: new Date()
+      }
+    });
+  } catch (error) {
+    console.error('Google AI Reasoning Error:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to process reasoning request with Google AI' 
+    });
+  }
+});
+
 // Health check for AI services
 router.get('/health', (req, res) => {
   res.json({
@@ -249,7 +442,10 @@ router.get('/health', (req, res) => {
       'CVSmash',
       'ChatRevive',
       'AgentX',
-      'VisionCraft'
+      'AutoChat',
+      'VisionCraft',
+      'Mistral',
+      'Google AI Studio'
     ],
     timestamp: new Date()
   });
