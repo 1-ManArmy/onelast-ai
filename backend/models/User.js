@@ -20,7 +20,7 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    minlength: 6
+    minlength: 8
   },
   firstName: {
     type: String,
@@ -31,6 +31,36 @@ const UserSchema = new mongoose.Schema({
     type: String,
     trim: true,
     maxlength: 50
+  },
+  // Authentication & Security
+  resetPasswordToken: String,
+  resetPasswordExpire: Date,
+  twoFactorSecret: String,
+  twoFactorEnabled: {
+    type: Boolean,
+    default: false
+  },
+  loginAttempts: {
+    type: Number,
+    default: 0
+  },
+  lockUntil: Date,
+  role: {
+    type: String,
+    enum: ['user', 'admin', 'moderator'],
+    default: 'user'
+  },
+  profile: {
+    avatar: String,
+    bio: {
+      type: String,
+      maxlength: 500
+    },
+    location: {
+      type: String,
+      trim: true,
+      maxlength: 50
+    }
   },
   isActive: {
     type: Boolean,
@@ -118,6 +148,38 @@ UserSchema.pre('save', async function(next) {
 // Compare password method
 UserSchema.methods.comparePassword = async function(candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
+};
+
+// Check if account is locked
+UserSchema.virtual('isLocked').get(function() {
+  return !!(this.lockUntil && this.lockUntil > Date.now());
+});
+
+// Increment login attempts
+UserSchema.methods.incLoginAttempts = function() {
+  // If we have a previous lock that has expired, restart at 1
+  if (this.lockUntil && this.lockUntil < Date.now()) {
+    return this.updateOne({
+      $unset: { lockUntil: 1 },
+      $set: { loginAttempts: 1 }
+    });
+  }
+  
+  const updates = { $inc: { loginAttempts: 1 } };
+  
+  // Lock account after 5 failed attempts for 2 hours
+  if (this.loginAttempts + 1 >= 5 && !this.isLocked) {
+    updates.$set = { lockUntil: Date.now() + 2 * 60 * 60 * 1000 }; // 2 hours
+  }
+  
+  return this.updateOne(updates);
+};
+
+// Reset login attempts
+UserSchema.methods.resetLoginAttempts = function() {
+  return this.updateOne({
+    $unset: { loginAttempts: 1, lockUntil: 1 }
+  });
 };
 
 // Remove password from JSON output
