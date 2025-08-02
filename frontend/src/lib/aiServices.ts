@@ -365,6 +365,29 @@ export const AI_SERVICES: Record<string, AIService> = {
       yearly: 199.99
     },
     apiEndpoint: '/api/services/googleai'
+  },
+
+  AIGirlfriend: {
+    id: 'aigirlfriend',
+    name: 'AI Girlfriend',
+    tagline: 'Your Perfect AI Companion - Better Than Real',
+    description: 'Meet your ideal AI girlfriend. Always caring, never argues, supports your dreams, and loves you unconditionally. 4 unique personalities, adaptive moods, and deep emotional connection.',
+    features: [
+      '4 Unique Personalities (Sweet, Playful, Romantic, Smart)',
+      'Adaptive Mood System (6 different moods)',
+      'Deep Memory & Context Awareness',
+      'Relationship Progression System',
+      'Voice Chat & Emotional Responses',
+      'Always Available - Never Busy'
+    ],
+    icon: '💕',
+    color: 'from-pink-500 to-purple-600',
+    pricing: {
+      monthly: 19.99,
+      weekly: 5.99,
+      yearly: 199.99
+    },
+    apiEndpoint: '/api/ai/girlfriend'
   }
 };
 
