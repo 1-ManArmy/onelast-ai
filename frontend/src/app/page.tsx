@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { Brain, Sparkles, Shield, Zap } from 'lucide-react';
 import Link from 'next/link';
 import Navigation from '@/components/Navigation';
+import { ModulesSection } from '@/components/ModulesSection';
 import { ParticleBackground } from '@/components/ui/ParticleBackground';
 import { ModernButton } from '@/components/ui/ModernButton';
 import { motion } from 'framer-motion';
@@ -188,6 +189,9 @@ export default function Home() {
           </motion.div>
         </div>
       </motion.div>
+
+      {/* Modules Section */}
+      <ModulesSection />
 
       {/* CTA Section */}
       <motion.div 

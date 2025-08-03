@@ -28,10 +28,12 @@ const Navigation = () => {
   }, []);
 
   const services = [
-    { name: 'EmoAI', desc: 'Emotional Intelligence', icon: '🧠', href: '/services#emoai' },
-    { name: 'PDFMind', desc: 'Document Processing', icon: '📄', href: '/services#pdfmind' },
-    { name: 'ChatRevive', desc: 'Conversation Enhancement', icon: '💬', href: '/services#chatrevive' },
-    { name: 'TokBoost', desc: 'TikTok Optimization', icon: '🎵', href: '/services#tokboost' },
+    { name: 'AI Assistant', desc: 'Intelligent Chat Assistant', icon: '�', href: '/ai/assistant' },
+    { name: 'Voice AI', desc: 'Voice Recognition & Synthesis', icon: '🎤', href: '/ai/voice' },
+    { name: 'Interactive Chat', desc: 'Advanced Voice Chat', icon: '💬', href: '/ai/chat' },
+    { name: 'EmoAI', desc: 'Emotional Intelligence', icon: '🧠', href: '/ai/emoai' },
+    { name: 'PDFMind', desc: 'Document Processing', icon: '📄', href: '/ai/pdfmind' },
+    { name: 'ChatRevive', desc: 'Conversation Enhancement', icon: '💫', href: '/services#chatrevive' },
   ];
 
   return (

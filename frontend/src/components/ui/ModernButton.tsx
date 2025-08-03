@@ -3,24 +3,22 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-interface ModernButtonProps {
+interface ModernButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  onClick?: () => void;
-  variant?: 'primary' | 'secondary' | 'accent' | 'glass';
+  variant?: 'primary' | 'secondary' | 'accent' | 'glass' | 'outline' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
   className?: string;
-  disabled?: boolean;
   glow?: boolean;
 }
 
 export function ModernButton({ 
   children, 
-  onClick, 
   variant = 'primary', 
   size = 'md', 
   className = '',
   disabled = false,
-  glow = false
+  glow = false,
+  ...props
 }: ModernButtonProps) {
   const baseClasses = "btn-modern font-semibold rounded-xl transition-all duration-300 flex items-center justify-center gap-2";
   
@@ -28,7 +26,9 @@ export function ModernButton({
     primary: "bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700",
     secondary: "bg-gradient-to-r from-teal-500 to-green-500 text-white hover:from-teal-600 hover:to-green-600",
     accent: "bg-gradient-to-r from-pink-500 to-rose-500 text-white hover:from-pink-600 hover:to-rose-600",
-    glass: "glass-card text-foreground hover:bg-white/20"
+    glass: "glass-card text-foreground hover:bg-white/20",
+    outline: "border border-white/30 text-white hover:bg-white/10",
+    ghost: "text-white hover:bg-white/10"
   };
   
   const sizeClasses = {
@@ -46,14 +46,14 @@ export function ModernButton({
   return (
     <motion.button
       className={combinedClasses}
-      onClick={disabled ? undefined : onClick}
+      disabled={disabled}
       whileHover={disabled ? {} : { 
         scale: 1.05, 
         y: -2,
         transition: { type: "spring", stiffness: 400, damping: 10 }
       }}
       whileTap={disabled ? {} : { scale: 0.95 }}
-      disabled={disabled}
+      {...props}
     >
       {children}
     </motion.button>

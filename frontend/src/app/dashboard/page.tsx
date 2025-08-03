@@ -207,6 +207,78 @@ export default function Dashboard() {
           </div>
         </div>
 
+        {/* AI Tools Quick Access */}
+        <div className="mb-8">
+          <h2 className="text-lg font-medium text-gray-900 mb-4">AI Tools</h2>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <a href="/ai/assistant" className="group">
+              <div className="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow border border-gray-200 hover:border-indigo-300">
+                <div className="flex items-center">
+                  <div className="flex-shrink-0">
+                    <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
+                      <Brain className="h-4 w-4 text-white" />
+                    </div>
+                  </div>
+                  <div className="ml-3">
+                    <p className="text-sm font-medium text-gray-900 group-hover:text-indigo-600">AI Assistant</p>
+                    <p className="text-xs text-gray-500">Intelligent chat</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+
+            <a href="/ai/voice" className="group">
+              <div className="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow border border-gray-200 hover:border-indigo-300">
+                <div className="flex items-center">
+                  <div className="flex-shrink-0">
+                    <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
+                      <svg className="h-4 w-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="ml-3">
+                    <p className="text-sm font-medium text-gray-900 group-hover:text-indigo-600">Voice AI</p>
+                    <p className="text-xs text-gray-500">Voice processing</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+
+            <a href="/ai/chat" className="group">
+              <div className="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow border border-gray-200 hover:border-indigo-300">
+                <div className="flex items-center">
+                  <div className="flex-shrink-0">
+                    <div className="w-8 h-8 bg-gradient-to-r from-pink-500 to-rose-500 rounded-lg flex items-center justify-center">
+                      <MessageSquare className="h-4 w-4 text-white" />
+                    </div>
+                  </div>
+                  <div className="ml-3">
+                    <p className="text-sm font-medium text-gray-900 group-hover:text-indigo-600">Interactive Chat</p>
+                    <p className="text-xs text-gray-500">Voice + text chat</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+
+            <a href="/ai/emoai" className="group">
+              <div className="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow border border-gray-200 hover:border-indigo-300">
+                <div className="flex items-center">
+                  <div className="flex-shrink-0">
+                    <div className="w-8 h-8 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg flex items-center justify-center">
+                      <span className="text-white text-sm">🧠</span>
+                    </div>
+                  </div>
+                  <div className="ml-3">
+                    <p className="text-sm font-medium text-gray-900 group-hover:text-indigo-600">EmoAI</p>
+                    <p className="text-xs text-gray-500">Emotion analysis</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+
         {/* Dashboard Grid */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {/* Stats Cards */}
