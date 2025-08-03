@@ -7,7 +7,6 @@ import { Brain, Sparkles, Shield, Zap } from 'lucide-react';
 import Link from 'next/link';
 import Navigation from '@/components/Navigation';
 import { ParticleBackground } from '@/components/ui/ParticleBackground';
-import { GlassCard } from '@/components/ui/GlassCard';
 import { ModernButton } from '@/components/ui/ModernButton';
 import { motion } from 'framer-motion';
 import { fadeInUp, staggerContainer } from '@/lib/utils';
