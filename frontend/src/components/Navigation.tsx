@@ -12,6 +12,8 @@ import {
   Sparkles,
   LogOut
 } from 'lucide-react';
+import { GlassCard } from '@/components/ui/GlassCard';
+import { ModernButton } from '@/components/ui/ModernButton';
 
 const Navigation = () => {
   const { user, logout } = useAuth();

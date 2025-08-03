@@ -6,6 +6,11 @@ import { useEffect } from 'react';
 import { Brain, Sparkles, Shield, Zap } from 'lucide-react';
 import Link from 'next/link';
 import Navigation from '@/components/Navigation';
+import { ParticleBackground } from '@/components/ui/ParticleBackground';
+import { GlassCard } from '@/components/ui/GlassCard';
+import { ModernButton } from '@/components/ui/ModernButton';
+import { motion } from 'framer-motion';
+import { fadeInUp, staggerContainer } from '@/lib/utils';
 
 export default function Home() {
   const { user } = useAuth();
@@ -18,54 +23,106 @@ export default function Home() {
   }, [user, router]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 relative overflow-hidden">
+      <ParticleBackground />
       <Navigation />
 
       {/* Hero Section */}
-      <div className="relative px-6 lg:px-8">
+      <div className="relative px-6 lg:px-8 z-10">
         <div className="mx-auto max-w-3xl pt-20 pb-32 sm:pt-48 sm:pb-40">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+          <motion.div 
+            className="text-center"
+            initial="initial"
+            animate="animate"
+            variants={staggerContainer}
+          >
+            <motion.div
+              variants={fadeInUp}
+              className="flex items-center justify-center gap-3 mb-6"
+            >
+              <motion.div
+                className="p-3 rounded-xl bg-gradient-to-br from-purple-600 to-blue-600 shadow-2xl glow-effect"
+                animate={{ rotate: [0, 5, -5, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <Brain size={32} color="white" />
+              </motion.div>
+            </motion.div>
+            
+            <motion.h1 
+              className="text-4xl font-bold tracking-tight sm:text-6xl gradient-text mb-6"
+              variants={fadeInUp}
+            >
               Your AI Memory
-              <span className="text-indigo-600"> Assistant</span>
-            </h1>
-            <p className="mt-6 text-lg leading-8 text-gray-600">
+              <span className="gradient-text-secondary"> Assistant</span>
+            </motion.h1>
+            
+            <motion.p 
+              className="mt-6 text-lg leading-8 text-gray-300 max-w-2xl mx-auto"
+              variants={fadeInUp}
+            >
               Never forget anything again. Onelast.AI becomes your digital memory,
               learning and remembering everything you share. From conversations to ideas,
               tasks to documents - your AI assistant keeps it all organized and accessible.
-            </p>
-            <div className="mt-10 flex items-center justify-center gap-x-6">
-              <Link
-                href="/register"
-                className="rounded-md bg-indigo-600 px-6 py-3 text-base font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Start Your Free Trial
+            </motion.p>
+            
+            <motion.div 
+              className="mt-10 flex items-center justify-center gap-x-6"
+              variants={fadeInUp}
+            >
+              <Link href="/register">
+                <ModernButton variant="primary" size="lg" glow>
+                  <Sparkles className="w-5 h-5" />
+                  Start Your Free Trial
+                </ModernButton>
               </Link>
-              <Link
-                href="#features"
-                className="text-base font-semibold leading-6 text-gray-900"
-              >
-                Learn more <span aria-hidden="true">→</span>
+              <Link href="#features">
+                <ModernButton variant="glass" size="lg">
+                  Learn more <span aria-hidden="true">→</span>
+                </ModernButton>
               </Link>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
 
       {/* Features Section */}
-      <div id="features" className="py-24 sm:py-32">
+      <motion.div 
+        id="features" 
+        className="py-24 sm:py-32"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+      >
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl lg:text-center">
-            <h2 className="text-base font-semibold leading-7 text-indigo-600">
+          <motion.div 
+            className="mx-auto max-w-2xl lg:text-center"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-base font-semibold leading-7 bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
               Powerful Features
             </h2>
-            <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            <p className="mt-2 text-3xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent sm:text-4xl">
               Everything you need in an AI memory assistant
             </p>
-          </div>
-          <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+          </motion.div>
+          <motion.div 
+            className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
             <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-4">
-              <div className="flex flex-col">
+              <motion.div 
+                className="glass-card p-6 rounded-xl"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
                 <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
                   <Brain className="h-5 w-5 flex-none text-indigo-600" />
                   Smart Memory
@@ -76,8 +133,13 @@ export default function Home() {
                     Automatically connects related information.
                   </p>
                 </dd>
-              </div>
-              <div className="flex flex-col">
+              </motion.div>
+              
+              <motion.div 
+                className="glass-card p-6 rounded-xl"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
                 <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
                   <Sparkles className="h-5 w-5 flex-none text-indigo-600" />
                   Instant Search
@@ -88,8 +150,13 @@ export default function Home() {
                     not just keywords.
                   </p>
                 </dd>
-              </div>
-              <div className="flex flex-col">
+              </motion.div>
+              
+              <motion.div 
+                className="glass-card p-6 rounded-xl"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
                 <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
                   <Shield className="h-5 w-5 flex-none text-indigo-600" />
                   Privacy First
@@ -100,8 +167,13 @@ export default function Home() {
                     Complete control over your information.
                   </p>
                 </dd>
-              </div>
-              <div className="flex flex-col">
+              </motion.div>
+              
+              <motion.div 
+                className="glass-card p-6 rounded-xl"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
                 <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
                   <Zap className="h-5 w-5 flex-none text-indigo-600" />
                   Real-time Sync
@@ -112,16 +184,28 @@ export default function Home() {
                     synchronization keeps everything up to date.
                   </p>
                 </dd>
-              </div>
+              </motion.div>
             </dl>
-          </div>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
 
       {/* CTA Section */}
-      <div className="bg-indigo-600">
+      <motion.div 
+        className="bg-gradient-to-r from-indigo-600 to-purple-600"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+      >
         <div className="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center">
+          <motion.div 
+            className="mx-auto max-w-2xl text-center"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
             <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
               Ready to get started?
             </h2>
@@ -130,16 +214,19 @@ export default function Home() {
               Start your free trial today.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
-              <Link
-                href="/register"
-                className="rounded-md bg-white px-6 py-3 text-base font-semibold text-indigo-600 shadow-sm hover:bg-indigo-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-              >
-                Start Free Trial
+              <Link href="/register">
+                <ModernButton
+                  variant="glass"
+                  size="lg"
+                  className="text-white border-white/30 hover:border-white/50"
+                >
+                  Start Free Trial
+                </ModernButton>
               </Link>
             </div>
-          </div>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Footer */}
       <footer className="bg-white">

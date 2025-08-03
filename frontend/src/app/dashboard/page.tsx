@@ -15,6 +15,11 @@ import {
   Lightbulb,
   LogOut
 } from 'lucide-react';
+import { GlassCard } from '@/components/ui/GlassCard';
+import { ModernButton } from '@/components/ui/ModernButton';
+import { motion } from 'framer-motion';
+  LogOut
+} from 'lucide-react';
 
 interface User {
   firstName?: string;

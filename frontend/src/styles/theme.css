@@ -1,0 +1,239 @@
+@import "tailwindcss";
+
+/* Modern Color System from AI Innovation Hub */
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  
+  /* AI Innovation Hub Specific Colors */
+  --gradient-primary: linear-gradient(135deg, oklch(0.488 0.243 264.376), oklch(0.627 0.265 303.9));
+  --gradient-secondary: linear-gradient(135deg, oklch(0.696 0.17 162.48), oklch(0.769 0.188 70.08));
+  --gradient-accent: linear-gradient(135deg, oklch(0.645 0.246 16.439), oklch(0.704 0.191 22.216));
+  
+  /* Onelast.AI Brand Colors */
+  --onelast-primary: oklch(0.488 0.243 264.376); /* Deep purple */
+  --onelast-secondary: oklch(0.627 0.265 303.9); /* Vibrant magenta */
+  --onelast-accent: oklch(0.696 0.17 162.48); /* Teal green */
+  --onelast-background: oklch(0.98 0.005 264.376); /* Very light tinted background */
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+}
+
+/* Advanced Visual Effects */
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Particle System Styles */
+.particle-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  background: linear-gradient(45deg, var(--onelast-primary), var(--onelast-secondary));
+  border-radius: 50%;
+  opacity: 0.1;
+  animation: float 8s infinite ease-in-out;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.1;
+  }
+  50% {
+    transform: translateY(-100px) rotate(180deg);
+    opacity: 0.3;
+  }
+  90% {
+    opacity: 0.1;
+  }
+}
+
+/* Modern Gradient Text Effects */
+.gradient-text {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-secondary {
+  background: var(--gradient-secondary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-accent {
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glow Effects */
+.glow-effect {
+  box-shadow: 
+    0 0 20px oklch(0.488 0.243 264.376 / 0.3),
+    0 0 40px oklch(0.488 0.243 264.376 / 0.2),
+    0 0 80px oklch(0.488 0.243 264.376 / 0.1);
+}
+
+.glow-effect-secondary {
+  box-shadow: 
+    0 0 20px oklch(0.627 0.265 303.9 / 0.3),
+    0 0 40px oklch(0.627 0.265 303.9 / 0.2),
+    0 0 80px oklch(0.627 0.265 303.9 / 0.1);
+}
+
+/* Platform Name Styling */
+.platform-name {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 30px oklch(0.488 0.243 264.376 / 0.5);
+}
+
+/* Glass Morphism Effects */
+.glass-card {
+  background: oklch(1 0 0 / 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid oklch(1 0 0 / 0.2);
+  box-shadow: 
+    0 8px 32px oklch(0 0 0 / 0.1),
+    inset 0 1px 0 oklch(1 0 0 / 0.2);
+}
+
+.dark .glass-card {
+  background: oklch(0 0 0 / 0.2);
+  border: 1px solid oklch(1 0 0 / 0.1);
+}
+
+/* Modern Button Styles */
+.btn-modern {
+  background: var(--gradient-primary);
+  border: 1px solid oklch(0.488 0.243 264.376 / 0.3);
+  box-shadow: 
+    0 4px 16px oklch(0.488 0.243 264.376 / 0.2),
+    inset 0 1px 0 oklch(1 0 0 / 0.2);
+  transition: all 0.3s ease;
+}
+
+.btn-modern:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 24px oklch(0.488 0.243 264.376 / 0.3),
+    inset 0 1px 0 oklch(1 0 0 / 0.3);
+}
+
+/* Advanced Animations */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px oklch(0.488 0.243 264.376 / 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px oklch(0.488 0.243 264.376 / 0.6);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s infinite ease-in-out;
+}
+
+/* Memory and AI themed effects */
+.memory-particle {
+  background: radial-gradient(circle, 
+    oklch(0.696 0.17 162.48) 0%, 
+    oklch(0.488 0.243 264.376) 50%, 
+    transparent 70%);
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+.neural-glow {
+  background: conic-gradient(
+    from 0deg,
+    oklch(0.488 0.243 264.376),
+    oklch(0.627 0.265 303.9),
+    oklch(0.696 0.17 162.48),
+    oklch(0.488 0.243 264.376)
+  );
+  animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

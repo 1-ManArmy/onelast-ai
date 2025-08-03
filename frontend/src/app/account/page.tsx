@@ -1,23 +1,30 @@
 'use client';
 
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { AuthContext } from '@/contexts/AuthContext';
+import { useAuth } from '@/contexts/AuthContext';
 import { User, Settings, CreditCard, Shield, Bell, Download, Trash2, Edit3 } from 'lucide-react';
+import { ParticleBackground } from '@/components/ui/ParticleBackground';
+import { GlassCard } from '@/components/ui/GlassCard';
+import { ModernButton } from '@/components/ui/ModernButton';
+import { motion } from 'framer-motion';
 
 const AccountPage = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { user, logout } = useAuth();
   const [activeTab, setActiveTab] = useState('profile');
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Please log in to access your account</h2>
-          <Link href="/login" className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700">
-            Log In
+      <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 flex items-center justify-center relative overflow-hidden">
+        <ParticleBackground />
+        <GlassCard className="text-center z-10">
+          <h2 className="text-2xl font-bold gradient-text mb-4">Please log in to access your account</h2>
+          <Link href="/login">
+            <ModernButton variant="primary" size="lg" glow>
+              Log In
+            </ModernButton>
           </Link>
-        </div>
+        </GlassCard>
       </div>
     );
   }
@@ -32,21 +39,27 @@ const AccountPage = () => {
 
   const ProfileSection = () => (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h3 className="text-2xl font-bold text-gray-900">Profile Information</h3>
-        <button className="flex items-center text-blue-600 hover:text-blue-800">
+      <motion.div 
+        className="flex items-center justify-between"
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <h3 className="text-2xl font-bold gradient-text">Profile Information</h3>
+        <ModernButton variant="glass" size="sm">
           <Edit3 className="h-4 w-4 mr-2" />
           Edit Profile
-        </button>
-      </div>
+        </ModernButton>
+      </motion.div>
 
       <div className="grid md:grid-cols-2 gap-6">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
           <input
             type="text"
-            value={user.name || ''}
+            value={`${user.firstName || ''} ${user.lastName || ''}`.trim() || 'Not provided'}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Full Name"
             readOnly
           />
         </div>
@@ -57,6 +70,7 @@ const AccountPage = () => {
             type="email"
             value={user.email || ''}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Email Address"
             readOnly
           />
         </div>
@@ -67,6 +81,7 @@ const AccountPage = () => {
             type="text"
             value={user.username || ''}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Username"
             readOnly
           />
         </div>
@@ -75,8 +90,9 @@ const AccountPage = () => {
           <label className="block text-sm font-medium text-gray-700 mb-2">Account Type</label>
           <input
             type="text"
-            value={user.subscriptionType || 'Free'}
+            value={user.subscription?.plan || 'Free'}
             className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50"
+            placeholder="Account Type"
             readOnly
           />
         </div>
@@ -86,20 +102,20 @@ const AccountPage = () => {
         <label className="block text-sm font-medium text-gray-700 mb-2">Bio</label>
         <textarea
           rows={4}
-          value={user.bio || ''}
-          placeholder="Tell us about yourself..."
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value=""
+          placeholder="Bio feature coming soon..."
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50"
           readOnly
         />
       </div>
 
       <div className="flex space-x-4">
-        <button className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700">
+        <ModernButton variant="primary" size="md">
           Save Changes
-        </button>
-        <button className="border border-gray-300 text-gray-700 px-6 py-2 rounded-md hover:bg-gray-50">
+        </ModernButton>
+        <ModernButton variant="glass" size="md">
           Cancel
-        </button>
+        </ModernButton>
       </div>
     </div>
   );
@@ -350,69 +366,84 @@ const AccountPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 relative overflow-hidden">
+      <ParticleBackground />
+      
       {/* Header */}
-      <div className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Onelast.AI Platform
-            </Link>
-            <div className="flex items-center space-x-4">
-              <span className="text-gray-700">Welcome, {user.name}</span>
-              <button
-                onClick={logout}
-                className="text-gray-500 hover:text-gray-700"
-              >
-                Logout
-              </button>
+      <div className="relative z-10">
+        <GlassCard className="rounded-none border-0 border-b border-white/10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div className="flex items-center justify-between">
+              <Link href="/" className="text-2xl font-bold platform-name">
+                Onelast.AI Platform
+              </Link>
+              <div className="flex items-center space-x-4">
+                <span className="gradient-text-secondary">Welcome, {user.firstName || user.username}</span>
+                <ModernButton
+                  variant="glass"
+                  size="sm"
+                  onClick={logout}
+                >
+                  Logout
+                </ModernButton>
+              </div>
             </div>
           </div>
-        </div>
+        </GlassCard>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar */}
           <div className="lg:w-1/4">
-            <div className="bg-white rounded-xl shadow-lg p-6">
-              <div className="flex items-center mb-6">
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-xl font-bold">
-                  {user.name?.charAt(0) || 'U'}
+            <GlassCard hover={false} glow>
+              <motion.div 
+                className="flex items-center mb-6"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className="w-16 h-16 neural-glow rounded-full flex items-center justify-center text-white text-xl font-bold p-1">
+                  <div className="w-full h-full bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center">
+                    {(user.firstName?.charAt(0) || user.username?.charAt(0) || 'U').toUpperCase()}
+                  </div>
                 </div>
                 <div className="ml-4">
-                  <h2 className="text-xl font-bold text-gray-900">{user.name}</h2>
-                  <p className="text-gray-600">{user.email}</p>
+                  <h2 className="text-xl font-bold gradient-text">{`${user.firstName || ''} ${user.lastName || ''}`.trim() || user.username}</h2>
+                  <p className="text-muted-foreground">{user.email}</p>
                 </div>
-              </div>
+              </motion.div>
 
               <nav className="space-y-2">
                 {tabs.map((tab) => {
                   const IconComponent = tab.icon;
                   return (
-                    <button
+                    <motion.button
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
                       className={`w-full flex items-center px-4 py-3 rounded-lg text-left transition-colors ${
                         activeTab === tab.id
-                          ? 'bg-blue-100 text-blue-700 border-r-2 border-blue-500'
-                          : 'text-gray-700 hover:bg-gray-100'
+                          ? 'bg-gradient-to-r from-purple-600/20 to-blue-600/20 border border-purple-400/30 gradient-text-secondary glow-effect'
+                          : 'text-muted-foreground hover:bg-white/10 hover:text-foreground'
                       }`}
+                      whileHover={{ scale: 1.02, x: 5 }}
+                      whileTap={{ scale: 0.98 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     >
                       <IconComponent className="h-5 w-5 mr-3" />
                       {tab.label}
-                    </button>
+                    </motion.button>
                   );
                 })}
               </nav>
-            </div>
+            </GlassCard>
           </div>
 
           {/* Main Content */}
           <div className="lg:w-3/4">
-            <div className="bg-white rounded-xl shadow-lg p-8">
+            <GlassCard hover={false} className="p-8">
               {renderActiveSection()}
-            </div>
+            </GlassCard>
           </div>
         </div>
       </div>
