@@ -49,6 +49,46 @@ export function ModulesSection() {
       subdomain: 'voice'
     },
     {
+      id: 'agentx',
+      name: 'AgentX',
+      description: 'Autonomous AI agent that handles complex tasks, web scraping, and API automation',
+      icon: Brain,
+      color: 'from-gray-600 to-gray-800',
+      features: ['Task Automation', 'Web Scraping', 'API Integration', 'Goal-driven Planning'],
+      status: 'active',
+      subdomain: 'agentx'
+    },
+    {
+      id: 'vision-craft',
+      name: 'VisionCraft',
+      description: 'Advanced computer vision AI for image analysis, object detection, and visual processing',
+      icon: BarChart3,
+      color: 'from-green-500 to-emerald-600',
+      features: ['Image Analysis', 'Object Detection', 'Facial Recognition', 'Visual Insights'],
+      status: 'active',
+      subdomain: 'vision'
+    },
+    {
+      id: 'mood-analyzer',
+      name: 'Mood Analyzer',
+      description: 'AI-powered emotional intelligence and mood analysis from text, voice, and visual inputs',
+      icon: Heart,
+      color: 'from-pink-500 to-rose-500',
+      features: ['Text Analysis', 'Voice Detection', 'Facial Recognition', 'Emotional Insights'],
+      status: 'active',
+      subdomain: 'mood'
+    },
+    {
+      id: 'ai-girlfriend',
+      name: 'AI Girlfriend',
+      description: 'Emotionally aware AI companion with voice interaction and natural conversation abilities',
+      icon: Heart,
+      color: 'from-pink-400 to-rose-400',
+      features: ['Voice Chat', 'Memory Engine', 'Personality Settings', 'Emotional Intelligence'],
+      status: 'active',
+      subdomain: 'girlfriend'
+    },
+    {
       id: 'assistant',
       name: 'AI Assistant',
       description: 'Comprehensive AI assistant for productivity, creativity, and problem-solving',
@@ -69,11 +109,21 @@ export function ModulesSection() {
       subdomain: 'code'
     },
     {
+      id: 'girlfriend',
+      name: 'AI Girlfriend',
+      description: 'Emotionally aware AI companion with voice interaction and memory system',
+      icon: Heart,
+      color: 'from-pink-500 to-purple-500',
+      features: ['Voice Chat', 'Memory Engine', 'Personality Settings', 'Emotional Intelligence'],
+      status: 'active',
+      subdomain: 'girlfriend'
+    },
+    {
       id: 'emotion',
       name: 'Voice Emotion Analysis',
       description: 'Real-time emotion detection and analysis from voice patterns and speech',
       icon: Heart,
-      color: 'from-pink-500 to-rose-500',
+      color: 'from-rose-500 to-pink-500',
       features: ['Emotion Recognition', 'Mood Tracking', 'Sentiment Analysis', 'Wellness Insights'],
       status: 'beta',
       subdomain: 'emotion'
@@ -118,8 +168,20 @@ export function ModulesSection() {
 
   const handleModuleClick = (module: AIModule) => {
     if (module.status === 'active' && module.subdomain) {
-      // In a real app, this would navigate to the subdomain
-      window.open(`https://${module.subdomain}.example.com`, '_blank');
+      // Navigate to the AI service page
+      const routes: { [key: string]: string } = {
+        'girlfriend': '/ai/girlfriend',
+        'assistant': '/ai/assistant', 
+        'voice': '/ai/voice',
+        'emotion': '/ai/emoai',
+        'astrology': '/ai/astrology',
+        'code': '/ai/code'
+      };
+      
+      const route = routes[module.subdomain];
+      if (route) {
+        window.location.href = route;
+      }
     }
   };
 

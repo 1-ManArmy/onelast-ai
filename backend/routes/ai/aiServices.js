@@ -3,7 +3,86 @@ const router = express.Router();
 const AIServiceIntegration = require('../services/aiIntegration');
 const auth = require('../middleware/auth');
 
+// Import individual AI service routes
+const girlfriendRoutes = require('./girlfriend');
+
 const aiService = new AIServiceIntegration();
+
+// Mount AI service routes
+router.use('/girlfriend', girlfriendRoutes);
+
+// Astrology AI - Advanced astrological insights
+router.post('/astrology/reading', auth, async (req, res) => {
+  try {
+    const { birthDate, birthTime, birthPlace, readingType } = req.body;
+    
+    if (!birthDate) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Birth date is required' 
+      });
+    }
+
+    const reading = await aiService.generateAstrologyReading({
+      birthDate,
+      birthTime,
+      birthPlace,
+      readingType: readingType || 'comprehensive'
+    });
+    
+    res.json({
+      success: true,
+      data: {
+        reading,
+        accuracy: reading.accuracy || 85,
+        timestamp: new Date().toISOString()
+      }
+    });
+
+  } catch (error) {
+    console.error('Astrology reading error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to generate astrology reading'
+    });
+  }
+});
+
+router.get('/astrology/moon-phase', async (req, res) => {
+  try {
+    const moonPhase = await aiService.getCurrentMoonPhase();
+    
+    res.json({
+      success: true,
+      data: moonPhase
+    });
+
+  } catch (error) {
+    console.error('Moon phase error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to get moon phase data'
+    });
+  }
+});
+
+router.get('/astrology/planetary-positions', async (req, res) => {
+  try {
+    const positions = await aiService.getPlanetaryPositions();
+    
+    res.json({
+      success: true,
+      data: positions
+    });
+
+  } catch (error) {
+    console.error('Planetary positions error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to get planetary positions'
+    });
+  }
+});
 
 // TokBoost - Social Media Content Generation
 router.post('/tokboost/generate', auth, async (req, res) => {
@@ -436,6 +515,7 @@ router.get('/health', (req, res) => {
     success: true,
     message: 'AI Services are operational',
     services: [
+      'AI Girlfriend',
       'TokBoost',
       'YouGen', 
       'GPT-God',

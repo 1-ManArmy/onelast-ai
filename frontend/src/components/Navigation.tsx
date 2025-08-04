@@ -1,6 +1,14 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React  const services = [
+    { name: 'AI Assistant', desc: 'Intelligent Chat Assistant', icon: '🤖', href: '/ai/assistant' },
+    { name: 'Voice AI', desc: 'Voice Recognition & Synthesis', icon: '🎤', href: '/ai/voice' },
+    { name: 'Interactive Chat', desc: 'Advanced Voice Chat', icon: '💬', href: '/ai/chat' },
+    { name: 'AI Girlfriend', desc: 'Emotional Companion with Voice', icon: '💖', href: '/ai/girlfriend' },
+    { name: 'EmoAI', desc: 'Emotional Intelligence', icon: '🧠', href: '/ai/emoai' },
+    { name: 'PDFMind', desc: 'Document Processing', icon: '📄', href: '/ai/pdfmind' },
+    { name: 'ChatRevive', desc: 'Conversation Enhancement', icon: '💫', href: '/services#chatrevive' },
+  ];tate, useEffect } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
