@@ -33,10 +33,7 @@ const limiter = rateLimit({
 app.use('/api/', limiter);
 
 // Database connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/onelast-ai', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/onelast-ai')
 .then(() => console.log('✅ Connected to MongoDB'))
 .catch(err => console.error('❌ MongoDB connection error:', err));
 
@@ -44,6 +41,12 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/onelast-a
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/memories', require('./routes/memories'));
 app.use('/api/users', require('./routes/users'));
+app.use('/api/ai/emoai', require('./routes/ai/emoai'));
+app.use('/api/ai/pdfmind', require('./routes/ai/pdfmind'));
+app.use('/api/ai/autochat', require('./routes/ai/autochat'));
+app.use('/api/ai/brainai', require('./routes/ai/brainai'));
+app.use('/api/ai/netintel', require('./routes/ai/netintel'));
+app.use('/api/ai/girlfriend', require('./routes/ai/girlfriend'));
 
 // Health check
 app.get('/health', (req, res) => {

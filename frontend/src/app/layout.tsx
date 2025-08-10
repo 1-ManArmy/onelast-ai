@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { ParticleBackground } from "@/components/ui/ParticleBackground";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,9 +23,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} font-sans antialiased bg-gray-50`}>
+      <body className={`${inter.variable} font-sans antialiased bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 text-white relative`}>
+        <ParticleBackground />
         <AuthProvider>
-          {children}
+          <div className="relative z-10">
+            {children}
+          </div>
         </AuthProvider>
       </body>
     </html>
