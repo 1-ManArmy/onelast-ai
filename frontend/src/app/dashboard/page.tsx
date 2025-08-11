@@ -18,8 +18,6 @@ import {
 import { GlassCard } from '@/components/ui/GlassCard';
 import { ModernButton } from '@/components/ui/ModernButton';
 import { motion } from 'framer-motion';
-  LogOut
-} from 'lucide-react';
 
 interface User {
   firstName?: string;
@@ -147,7 +145,7 @@ export default function Dashboard() {
           <div className="flex justify-between h-16">
             <div className="flex items-center">
               <Brain className="h-8 w-8 text-indigo-600" />
-              <span className="ml-2 text-xl font-bold text-gray-900">Onelast.AI</span>
+              <span className="ml-2 text-xl font-bold text-gray-900">OneLast AI</span>
             </div>
             <div className="flex items-center space-x-4">
               <span className="text-sm text-gray-700">

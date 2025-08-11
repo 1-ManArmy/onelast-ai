@@ -10,7 +10,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Onelast.AI - Your AI Memory Assistant",
+  title: "OneLast AI - Your AI Memory Assistant",
   description: "AI-powered memory and knowledge management platform that learns and remembers everything you share.",
   keywords: ["AI", "memory", "assistant", "SaaS", "knowledge management"],
   authors: [{ name: "AI-Digital-Market" }],

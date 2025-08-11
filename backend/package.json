@@ -1,7 +1,7 @@
 {
-  "name": "onelast-ai-backend",
+  "name": "onelastai-backend",
   "version": "1.0.0",
-  "description": "AI Memory SaaS Platform Backend",
+  "description": "OneLast AI Platform Backend",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

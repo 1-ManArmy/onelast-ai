@@ -284,7 +284,7 @@ setup_ssl() {
         fi
         
         echo "SSL setup ready. To complete SSL setup, run on the server:"
-        echo "sudo certbot --nginx -d yourdomain.com"
+        echo "sudo certbot --nginx -d onelastai.com -d www.onelastai.com -d api.onelastai.com -d agentx.onelastai.com -d emo.onelastai.com -d pdfmind.onelastai.com -d astrology.onelastai.com"
 ENDSSH
     
     log_success "SSL setup prepared!"

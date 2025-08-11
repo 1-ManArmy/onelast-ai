@@ -1,5 +1,10 @@
 # Backend Dockerfile
-FROM node:18-alpine
+FROM node:20-alpine
+
+# Install security updates and required packages
+RUN apk update && apk upgrade && \
+    apk add --no-cache dumb-init curl && \
+    rm -rf /var/cache/apk/*
 
 WORKDIR /app
 
@@ -20,4 +25,5 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD curl -f http://localhost:5000/health || exit 1
 
 # Start the application
+ENTRYPOINT ["dumb-init", "--"]
 CMD ["npm", "start"]

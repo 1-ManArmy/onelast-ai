@@ -221,7 +221,7 @@ const PrivacyPolicyPage = () => {
 
             <div className="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-6">
               <h3 className="text-lg font-semibold text-blue-800 mb-2">Exercise Your Rights</h3>
-              <p className="text-blue-700 mb-4">To exercise any of these rights, contact us at privacy@onelast.ai or through your account settings.</p>
+              <p className="text-blue-700 mb-4">To exercise any of these rights, contact us at privacy@onelastai.com or through your account settings.</p>
               <Link href="/account/privacy" className="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold">
                 Manage Privacy Settings →
               </Link>
@@ -269,14 +269,14 @@ const PrivacyPolicyPage = () => {
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-2">Privacy Officer</h4>
-                  <p className="text-gray-700">Email: privacy@onelast.ai</p>
+                  <p className="text-gray-700">Email: privacy@onelastai.com</p>
                   <p className="text-gray-700">Phone: +1 (555) 123-4567</p>
                 </div>
                 
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-2">Mailing Address</h4>
                   <p className="text-gray-700">
-                    Onelast.AI Platform<br />
+                    OneLast AI Platform<br />
                     123 AI Innovation Drive<br />
                     Tech City, TC 12345<br />
                     United States

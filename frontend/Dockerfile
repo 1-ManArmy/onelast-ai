@@ -1,5 +1,8 @@
 # Frontend Dockerfile
-FROM node:18-alpine AS builder
+FROM node:20-alpine AS builder
+
+# Install security updates
+RUN apk update && apk upgrade && rm -rf /var/cache/apk/*
 
 WORKDIR /app
 
@@ -16,7 +19,12 @@ COPY . .
 RUN npm run build
 
 # Production image
-FROM node:18-alpine AS runner
+FROM node:20-alpine AS runner
+
+# Install security updates and required packages
+RUN apk update && apk upgrade && \
+    apk add --no-cache dumb-init && \
+    rm -rf /var/cache/apk/*
 
 WORKDIR /app
 
@@ -33,7 +41,8 @@ USER nextjs
 
 EXPOSE 3000
 
-ENV PORT 3000
-ENV HOSTNAME "0.0.0.0"
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
 
+ENTRYPOINT ["dumb-init", "--"]
 CMD ["node", "server.js"]
