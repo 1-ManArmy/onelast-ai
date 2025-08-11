@@ -1,5 +1,6 @@
 {
     "recommendations": [
-        "ms-azuretools.vscode-azurevirtualmachines"
+        "ms-azuretools.vscode-azurevirtualmachines",
+        "github.copilot-chat"
     ]
 }
