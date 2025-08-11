@@ -1,8 +1,8 @@
 {
-  "name": "agentx-onelast-ai",
+  "name": "agentx-onelastai",
   "version": "1.0.0",
   "private": true,
-  "description": "AgentX - AI Agent Automation Platform at agentx.onelast.ai",
+  "description": "AgentX - AI Agent Automation Platform at agentx.onelastai.com",
   "scripts": {
     "dev": "next dev -p 3001",
     "build": "next build", 

@@ -375,7 +375,7 @@ const AccountPage = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div className="flex items-center justify-between">
               <Link href="/" className="text-2xl font-bold platform-name">
-                Onelast.AI Platform
+                OneLast AI Platform
               </Link>
               <div className="flex items-center space-x-4">
                 <span className="gradient-text-secondary">Welcome, {user.firstName || user.username}</span>

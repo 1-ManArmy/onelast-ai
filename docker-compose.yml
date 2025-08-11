@@ -33,7 +33,8 @@ services:
       MONGODB_URI: mongodb://admin:password123@mongodb:27017/onelast-ai?authSource=admin
       JWT_SECRET: ${JWT_SECRET:-your-super-secret-jwt-key-change-this-in-production}
       JWT_EXPIRE: 7d
-      FRONTEND_URL: http://localhost:3000
+      FRONTEND_URL: https://onelastai.com
+      CORS_ORIGIN: https://onelastai.com,https://api.onelastai.com,https://agentx.onelastai.com,https://emo.onelastai.com,https://pdfmind.onelastai.com,https://astrology.onelastai.com
     depends_on:
       - mongodb
     networks:
@@ -41,7 +42,7 @@ services:
     volumes:
       - ./backend/logs:/app/logs
 
-  # Frontend
+  # Main Frontend
   frontend:
     build:
       context: ./frontend
@@ -51,13 +52,90 @@ services:
     ports:
       - "3000:3000"
     environment:
-      NEXT_PUBLIC_API_URL: http://localhost:5000
-    depends_on:
-      - backend
+      NODE_ENV: production
+      NEXT_PUBLIC_API_URL: https://api.onelastai.com
+      NEXT_PUBLIC_WS_URL: wss://ws.onelastai.com
     networks:
       - onelast-ai-network
 
-  # Redis (for future caching/sessions)
+  # AgentX Subdomain
+  agentx:
+    build:
+      context: ./subdomains/agentx
+      dockerfile: Dockerfile
+    container_name: onelast-ai-agentx
+    restart: unless-stopped
+    ports:
+      - "3001:3000"
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_API_URL: https://api.onelastai.com
+    networks:
+      - onelast-ai-network
+
+  # EMO AI Subdomain
+  emo:
+    build:
+      context: ./subdomains/emo
+      dockerfile: Dockerfile
+    container_name: onelast-ai-emo
+    restart: unless-stopped
+    ports:
+      - "3002:3000"
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_API_URL: https://api.onelastai.com
+    networks:
+      - onelast-ai-network
+
+  # PDFMind Subdomain
+  pdfmind:
+    build:
+      context: ./subdomains/pdfmind
+      dockerfile: Dockerfile
+    container_name: onelast-ai-pdfmind
+    restart: unless-stopped
+    ports:
+      - "3003:3000"
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_API_URL: https://api.onelastai.com
+    networks:
+      - onelast-ai-network
+
+  # Astrology Subdomain
+  astrology:
+    build:
+      context: ./subdomains/astrology
+      dockerfile: Dockerfile
+    container_name: onelast-ai-astrology
+    restart: unless-stopped
+    ports:
+      - "3004:3000"
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_API_URL: https://api.onelastai.com
+    networks:
+      - onelast-ai-network
+
+  # Payment Validation Service
+  payment-validation:
+    build:
+      context: ./payment_validation
+      dockerfile: Dockerfile
+    container_name: onelast-ai-payment-validation
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+    environment:
+      NODE_ENV: production
+      API_URL: https://api.onelastai.com
+    networks:
+      - onelast-ai-network
+    volumes:
+      - ./payment_validation/logs:/app/logs
+
+  # Redis (for caching and sessions)
   redis:
     image: redis:7-alpine
     container_name: onelast-ai-redis

@@ -820,8 +820,8 @@ print(result.emojis)    # ['😍', '❤️', '🎉']`;
                   </a>
                 </li>
                 <li>
-                  <a href="mailto:info@onelast.ai" className="hover:text-purple-400 transition-colors">
-                    ✉️ Email: info@onelast.ai
+                  <a href="mailto:info@onelastai.com" className="hover:text-purple-400 transition-colors">
+                    ✉️ Email: info@onelastai.com
                   </a>
                 </li>
               </ul>
@@ -857,7 +857,7 @@ print(result.emojis)    # ['😍', '❤️', '🎉']`;
                 <a href="https://www.onelastai.com" className="text-gray-400 hover:text-purple-400 transition-colors" title="Website">
                   <Globe className="w-5 h-5" />
                 </a>
-                <a href="mailto:info@onelast.ai" className="text-gray-400 hover:text-purple-400 transition-colors" title="Email">
+                <a href="mailto:info@onelastai.com" className="text-gray-400 hover:text-purple-400 transition-colors" title="Email">
                   <Mail className="w-5 h-5" />
                 </a>
                 <a href="https://t.me/onelastai" className="text-gray-400 hover:text-purple-400 transition-colors" title="Telegram">
