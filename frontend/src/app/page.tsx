@@ -9,6 +9,7 @@ import Navigation from '@/components/Navigation';
 import { ModulesSection } from '@/components/ModulesSection';
 import { ParticleBackground } from '@/components/ui/ParticleBackground';
 import { ModernButton } from '@/components/ui/ModernButton';
+import FooterNew from '@/components/FooterNew';
 import { motion } from 'framer-motion';
 import { fadeInUp, staggerContainer } from '@/lib/utils';
 
@@ -364,6 +365,9 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Beautiful Footer */}
+      <FooterNew />
     </div>
   );
 }
